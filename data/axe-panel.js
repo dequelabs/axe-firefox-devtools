@@ -1,30 +1,23 @@
 (function (window) {
 	var results, rule, compiledRowTemplate, compiledTableTemplate;
 
-	Handlebars.registerHelper('violations', function(items) {
+	function helperItemIterator(items, template) {
 		var out = '';
-		for (var i = 0; i < items.length; i++) {
-			out += compiledRowTemplate(items[i]);
+		if (items) {
+			for (var i = 0; i < items.length; i++) {
+				out += template(items[i]);
+			}
 		}
-		return out;
+		return out;		
+	}
+	Handlebars.registerHelper('violations', function(items) {
+		return helperItemIterator(items, compiledRowTemplate);
 	});
 	Handlebars.registerHelper('related', function(items) {
-		var out = '';
-		if (items) {
-			for (var i = 0; i < items.length; i++) {
-				out += compiledRelatedNodeTemplate(items[i]);
-			}
-		}
-		return out;
+		return helperItemIterator(items, compiledRelatedNodeTemplate);
 	});
 	Handlebars.registerHelper('reasons', function(items) {
-		var out = '';
-		if (items) {
-			for (var i = 0; i < items.length; i++) {
-				out += compiledFailureTemplate(items[i]);
-			}
-		}
-		return out;
+		return helperItemIterator(items, compiledFailureTemplate);
 	});
 
 	// Setup handlebars templates
