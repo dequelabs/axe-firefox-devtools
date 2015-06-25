@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="./axe-panel.css"rel="stylesheet"></link>
+  </head>
+  <body>
+  		<div id="toolbar">
+  			<button id="analyze">Analyze</button>
+  		</div>
+  		<div id="results">
+			<div id="list">
+			</div>
+			<div id="details" class="empty">
+				<div id="actions">				
+					<button class="prev" title="Previous">&lt;</button>
+					<div class="current">
+						<div id="currentNode">
+							n/a
+						</div>
+						<div>
+						 of 
+						</div>
+						<div id="nodeCount">
+							n/a
+						</div>
+					</div>
+					<button class="next" title="Next">&gt;</button>
+				</div>
+				<table id="detailsItem">
+					<tr id="html">
+						<th scope="row">
+							Selector
+						</th>
+						<td>
+						</td>
+						<td>
+							<button class="inspect">inspect</button><br/>
+							<button class="highlight">highlight</button>
+						</td>
+					</tr>
+					<tr id="reason">
+						<th scope="row">
+							Reason
+						</th>
+						<td colspan="2">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+  </body>
+  <script src="./axe-panel.js"></script>
+</html>

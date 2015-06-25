@@ -1,0 +1,9 @@
+{
+  "name": "axe-firefox-devtools",
+  "title": "axe-firefox-devtools",
+  "id": "jid1-CEJgFWewyX7KWA",
+  "description": "Add accessibility auditing to the Firefox dev tools",
+  "author": "Dylan Barrell",
+  "license": "MPL 2.0",
+  "version": "0.2"
+}

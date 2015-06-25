@@ -1,0 +1,122 @@
+* {
+	font-size:10px !important;
+	font-family: Arial;
+}
+
+body, div {
+	padding:0;
+	margin:0;
+}
+
+body {
+	background-color: white;
+}
+
+#toolbar {
+	width:100%;
+	background-color: #eee;
+	border-bottom:1px solid black;
+}
+
+h1 {
+	font-size:16px;
+}
+
+#results {
+  width: 100%;
+}
+
+#list {
+	display:inline-block;
+	width:50%;
+	padding-top:2px;
+	padding-left:2px;
+}
+
+#list .highlighted , #list .selected {
+	color:white !important;
+	background-color:#151515 !important;
+	cursor:pointer;
+}
+
+#details {
+	display:fixed;
+	float:right;
+	width:49%;
+	background-color: #eee;
+	height:100%;
+	border-left:1px solid black;
+	padding-left:.5em;
+	padding-right:.5em;
+	padding-top:2px;
+	box-sizing:border-box;
+}
+
+table {
+	width:100%;
+	border-collapse: collapse;
+	border:1px solid black;
+}
+
+table th {
+	text-align: left;
+	vertical-align: top;
+	border:1px solid black;
+}
+table td {
+	border:1px solid black;
+	vertical-align: top;
+}
+
+#detailsItem th {
+	width:20%;
+}
+
+#detailsItem td {
+	width:80%;
+}
+
+#details.empty {
+	display:none;
+}
+
+#actions {
+	width:100%;
+}
+
+#actions * {
+	padding:0;
+	margin:0;
+}
+
+#actions button, #actions div {
+	display:inline-block;
+}
+
+#actions .current {
+	margin-top: .25em;
+	width:79%;
+}
+.current div {
+	display:inline-block;
+	width:10%;
+	text-align: center
+}
+#nodeCount, #currentNode {
+	width:40%;
+}
+#currentNode {
+	text-align:right;
+}
+#nodeCount {
+	text-align: left;
+}
+.next, .prev {
+	width:10%;
+}
+.next {
+	float:right;
+}
+.prev {
+	float:left;
+}
