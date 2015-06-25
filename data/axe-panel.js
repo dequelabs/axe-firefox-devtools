@@ -20,7 +20,7 @@
 			retVal += '<ul>Related Nodes:';
 			relatedNodes.forEach(function (node) {
 				retVal += '<li><a href="javascript:;" class="related-node" data-element=\'' + JSON.stringify(node.target) + '\'>';
-				retVal += node.target.join('>').replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
+				retVal += node.target.join(' ').replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
 				retVal += '</a></li>';
 			});
 			retVal += '</ul>';
