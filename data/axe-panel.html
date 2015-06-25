@@ -13,7 +13,7 @@
 			<a target="_blank" href="{{helpUrl}}">?</a>
 		</td>
 		<td class="count">
-			{{violations}}
+			{{count}}
 		</td>
 		<td class="impact">
 			{{impact}}
@@ -31,6 +31,31 @@
 		{{#violations violationList}}{{/violations}}
 	</table>
     </script>
+    <script id="relatedListTemplate" type="text/x-handlebars-template">
+	<ul>Related Nodes:
+		{{#related relatedNodeList}}{{/related}}
+	</ul>
+    </script>
+    <script id="relatedNodeTemplate" type="text/x-handlebars-template">
+	<li>
+		<a href="javascript:;" class="related-node" data-element="{{targetArrayString}}">
+			{{targetString}}
+		</a>
+	</li>
+    </script>
+    <script id="reasonsTemplate" type="text/x-handlebars-template">
+	<p class="summary">
+		<ul class="failure-message">
+			{{#reasons reasonsList}}{{/reasons}}
+		</ul>
+	</p>
+    </script>
+    <script id="failureTemplate" type="text/x-handlebars-template">
+	<li>
+		{{message}}
+		{{{relatedNodesMessage}}}
+	</li>
+	</script>
   </head>
   <body>
   		<div id="toolbar">

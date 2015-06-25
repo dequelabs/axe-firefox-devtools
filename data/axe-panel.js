@@ -8,37 +8,56 @@
 		}
 		return out;
 	});
+	Handlebars.registerHelper('related', function(items) {
+		var out = '';
+		if (items) {
+			for (var i = 0; i < items.length; i++) {
+				out += compiledRelatedNodeTemplate(items[i]);
+			}
+		}
+		return out;
+	});
+	Handlebars.registerHelper('reasons', function(items) {
+		var out = '';
+		if (items) {
+			for (var i = 0; i < items.length; i++) {
+				out += compiledFailureTemplate(items[i]);
+			}
+		}
+		return out;
+	});
 
 	// Setup handlebars templates
 
 	compiledRowTemplate = Handlebars.compile(rowTemplate.innerHTML);
 	compiledTableTemplate = Handlebars.compile(tableTemplate.innerHTML);
+	compiledRelatedListTemplate = Handlebars.compile(relatedListTemplate.innerHTML);
+	compiledRelatedNodeTemplate = Handlebars.compile(relatedNodeTemplate.innerHTML);
+	compiledFailureTemplate = Handlebars.compile(failureTemplate.innerHTML);
+	compiledReasonsTemplate = Handlebars.compile(reasonsTemplate.innerHTML);
 
 	function messageFromRelatedNodes(relatedNodes) {
 		var retVal = '';
 		if (relatedNodes.length) {
-			retVal += '<ul>Related Nodes:';
-			relatedNodes.forEach(function (node) {
-				retVal += '<li><a href="javascript:;" class="related-node" data-element=\'' + JSON.stringify(node.target) + '\'>';
-				retVal += node.target.join(' ').replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
-				retVal += '</a></li>';
+			var list = relatedNodes.map(function (node) {
+				return {
+					targetArrayString: JSON.stringify(node.target),
+					targetString: node.target.join(' ').replace(/</gi, '&lt;').replace(/>/gi, '&gt;')
+				};
 			});
-			retVal += '</ul>';
+			retVal += compiledRelatedListTemplate({relatedNodeList: list});
 		}
 		return retVal;
 	}
 
 	function messagesFromArray(nodes) {
-		var retVal = '<p class="summary"><ul class="failure-message">';
-		nodes.forEach(function (failure) {
-			var htmlSafeMessage = failure.message.replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
-			retVal += '<li>';
-			retVal += htmlSafeMessage;
-			retVal += messageFromRelatedNodes(failure.relatedNodes);
-			retVal += '</li>';
+		var list = nodes.map(function (failure) {
+			return {
+				message: failure.message.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'),
+				relatedNodesMessage: messageFromRelatedNodes(failure.relatedNodes)
+			}
 		});
-		retVal += '</ul></p>';
-		return retVal;
+		return compiledReasonsTemplate({reasonsList: list});
 	}
 
 	function summary(node) {
@@ -153,9 +172,9 @@
 					help: rule.help.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'),
 					bestpractice: (rule.tags.indexOf('best-practice') !== -1),
 					helpUrl: rule.helpUrl,
-					violations: rule.nodes.length,
+					count: rule.nodes.length,
 					index: i
-				}
+				};
 			});
 
 			list.innerHTML = compiledTableTemplate({violationList: violations});
