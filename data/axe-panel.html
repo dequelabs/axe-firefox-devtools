@@ -2,6 +2,35 @@
   <head>
     <meta charset="utf-8">
     <link href="./axe-panel.css"rel="stylesheet"></link>
+    <script id="rowTemplate" type="text/x-handlebars-template">
+	<tr>
+		<th scope="row" class="help">
+			<a href="javascript:;" class="rule" data-index="{{index}}">
+				{{help}}
+			</a>
+		</th>
+		<td scope="row">
+			<a target="_blank" href="{{helpUrl}}">?</a>
+		</td>
+		<td class="count">
+			{{violations}}
+		</td>
+		<td class="impact">
+			{{impact}}
+		</td>
+	</tr>
+    </script>
+    <script id="tableTemplate" type="text/x-handlebars-template">
+	<table>
+		<tr>
+		<th scope="col">Description</th>
+		<th scope="col">Info</th>
+		<th scope="col">Count</th>
+		<th scope="col">Impact</th>
+		</tr>
+		{{#violations violationList}}{{/violations}}
+	</table>
+    </script>
   </head>
   <body>
   		<div id="toolbar">
@@ -49,5 +78,6 @@
 			</div>
 		</div>
   </body>
+  <script src="./handlebars.js"></script>
   <script src="./axe-panel.js"></script>
 </html>

@@ -1,5 +1,20 @@
 (function (window) {
-	var results, rule;
+	var results, rule, compiledRowTemplate, compiledTableTemplate;
+
+	Handlebars.registerHelper('violations', function(items) {
+		var out = '';
+
+		for(var i = 0; i < items.length; i++) {
+			out += compiledRowTemplate(items[i]);
+		}
+
+		return out;
+	});
+
+	// Setup handlebars templates
+
+	compiledRowTemplate = Handlebars.compile(rowTemplate.innerHTML);
+	compiledTableTemplate = Handlebars.compile(tableTemplate.innerHTML);
 
 	function messageFromRelatedNodes(relatedNodes) {
 		var retVal = '';
@@ -137,38 +152,18 @@
 			return;
 		}
 		if (results.violations.length) {
-			var listHTML = ''
-			listHTML += '<table>';
-			listHTML += '<tr>';
-			listHTML += '<th scope="col">Description</th>';
-			listHTML += '<th scope="col">Info</th>';
-			listHTML += '<th scope="col">Count</th>';
-			listHTML += '<th scope="col">Impact</th>';
-			listHTML += '</tr>';
-			results.violations.forEach(function (rule, i) {
-				// TODO: Best practices
-				var impact = rule.impact;
-				var help = rule.help.replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
-				var bestpractice = (rule.tags.indexOf('best-practice') !== -1);
-				var issueHTML = ''
-				issueHTML += '<tr>';
-				issueHTML += '<th scope="row" class="help"><a href="javascript:;" class="rule" data-index="' + i + '">';
-				issueHTML += help;
-				issueHTML += '</a></th>';
-				issueHTML += '<td scope="row"><a target="_blank" href="';
-				issueHTML += rule.helpUrl;
-				issueHTML += '">?</a></td>';
-				issueHTML += '<td class="count">';
-				issueHTML += rule.nodes.length;
-				issueHTML += '</td>';
-				issueHTML += '<td class="impact">';
-				issueHTML += impact;
-				issueHTML += '</td>';
-				issueHTML += '</tr>';
-				listHTML += issueHTML;
+			var violations = results.violations.map(function (rule, i) {
+				return {
+					impact: rule.impact,
+					help: rule.help.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'),
+					bestpractice: (rule.tags.indexOf('best-practice') !== -1),
+					helpUrl: rule.helpUrl,
+					violations: rule.nodes.length,
+					index: i
+				}
 			});
-			listHTML += '</table>';
-			list.innerHTML = listHTML;
+
+			list.innerHTML = compiledTableTemplate({violationList: violations});
 		} else {
 			details.classList.add('empty');
 			list.innerHTML += '<p>Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS</p>';
@@ -190,5 +185,4 @@
 		document.getElementById('html').getElementsByTagName('td')[1].setAttribute('data-element', JSON.stringify(node.target));
 		window.port.postMessage('{"command": "highlight", "target": ' + JSON.stringify(node.target) + '}');
 	}
-
 })(this);
