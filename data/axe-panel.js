@@ -3,11 +3,9 @@
 
 	Handlebars.registerHelper('violations', function(items) {
 		var out = '';
-
-		for(var i = 0; i < items.length; i++) {
+		for (var i = 0; i < items.length; i++) {
 			out += compiledRowTemplate(items[i]);
 		}
-
 		return out;
 	});
 
@@ -62,7 +60,7 @@
 	  window.port = event.ports[0];
 	  window.port.start();
 	  window.port.onmessage = receive;
-	});
+	}, false);
 
 	document.addEventListener('click', function(e) {
 		if (e.target.classList.contains('related-node')) {
@@ -79,7 +77,7 @@
 			e.target.classList.add('selected');
 			e.target.setAttribute('title', 'selected');
 		}
-	});
+	}, false);
 
 	document.addEventListener('mouseover', function (e) {
 		if (e.target.classList.contains('related-node')) {
@@ -88,7 +86,7 @@
 		if (e.target.classList.contains('rule')) {
 			e.target.classList.add('highlighted');
 		}
-	});
+	}, false);
 
 	document.addEventListener('mouseout', function (e) {
 		if (e.target.classList.contains('related-node')) {
@@ -97,7 +95,7 @@
 		if (e.target.classList.contains('rule')) {
 			e.target.classList.remove('highlighted');
 		}
-	});
+	}, false);
 
 	document.getElementById('actions').addEventListener('click', function (e) {
 		var current, max;
@@ -117,7 +115,7 @@
 		}
 		displayNodeDetails(current);
 		e.stopPropagation();
-	});
+	}, false);
 
 	document.getElementById('detailsItem').addEventListener('click', function (e) {
 		if (e.target.classList.contains('inspect')) {
@@ -127,18 +125,15 @@
 			window.port.postMessage('{"command": "highlight", "target": ' + e.target.parentNode.getAttribute('data-element') + '}');
 			e.stopPropagation();
 		}
-	});
+	}, false);
 
 	var request = document.getElementById("analyze");
 	var list = document.getElementById("list");
 	var details = document.getElementById("details");
 
-	request.addEventListener("click", send, false);
-
-	function send(event) {
-		list.textContent = '';
+	request.addEventListener("click", function () {
 		window.port.postMessage('{"command": "analyze"}');
-	}
+	}, false);
 
 	function receive(event) {
 		results = event.data;
