@@ -141,6 +141,7 @@
 			listHTML += '<table>';
 			listHTML += '<tr>';
 			listHTML += '<th scope="col">Description</th>';
+			listHTML += '<th scope="col">Info</th>';
 			listHTML += '<th scope="col">Count</th>';
 			listHTML += '<th scope="col">Impact</th>';
 			listHTML += '</tr>';
@@ -150,9 +151,13 @@
 				var help = rule.help.replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
 				var bestpractice = (rule.tags.indexOf('best-practice') !== -1);
 				var issueHTML = ''
-				issueHTML += '<tr><td class="help"><a href="javascript:;" class="rule" data-index="' + i + '">';
+				issueHTML += '<tr>';
+				issueHTML += '<th scope="row" class="help"><a href="javascript:;" class="rule" data-index="' + i + '">';
 				issueHTML += help;
-				issueHTML += '</a></td>';
+				issueHTML += '</a></th>';
+				issueHTML += '<td scope="row"><a target="_blank" href="';
+				issueHTML += rule.helpUrl;
+				issueHTML += '">?</a></td>';
 				issueHTML += '<td class="count">';
 				issueHTML += rule.nodes.length;
 				issueHTML += '</td>';
