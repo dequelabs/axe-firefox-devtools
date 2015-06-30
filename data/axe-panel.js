@@ -35,7 +35,7 @@
 			var list = relatedNodes.map(function (node) {
 				return {
 					targetArrayString: JSON.stringify(node.target),
-					targetString: node.target.join(' ').replace(/</gi, '&lt;').replace(/>/gi, '&gt;')
+					targetString: node.target.join(' ')
 				};
 			});
 			retVal += compiledRelatedListTemplate({relatedNodeList: list});
