@@ -46,7 +46,7 @@
 	function messagesFromArray(nodes) {
 		var list = nodes.map(function (failure) {
 			return {
-				message: failure.message.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'),
+				message: failure.message,
 				relatedNodesMessage: messageFromRelatedNodes(failure.relatedNodes)
 			}
 		});
