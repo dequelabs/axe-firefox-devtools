@@ -173,7 +173,7 @@
 			list.innerHTML = compiledTableTemplate({violationList: violations});
 		} else {
 			details.classList.add('empty');
-			list.innerHTML += '<p>Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS</p>';
+			list.innerHTML = '<p>Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS</p>';
 		}
 	}
 
