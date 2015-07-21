@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - '0.12'
+before_install:
+  - npm install -g jpm
+  - npm install -g bower
+  - bower install
+script:
+  - cp bower_components/axe-core/axe.js data/
+  - cp bower_components/handlebars/handlebars.js data/
+  - jpm xpi
