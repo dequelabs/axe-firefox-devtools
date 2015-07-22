@@ -1,9 +1,17 @@
-/*
- * aXe communicator
- */
-self.port.on('axe.analyze', function() {
-	axe.a11yCheck(document, function (results) {
-	    self.port.emit('axe.results', results);
+
+(function () {
+	if (document.defaultView.top != document.defaultView) {
+		return;
+	}
+
+	/*
+	 * aXe communicator
+	 */
+	self.port.on('axe.analyze', function() {
+		axe.a11yCheck(document, function (results) {
+		    self.port.emit('results', results);
+		});
 	});
-});
-self.port.emit('axe.loaded', {});
+	self.port.emit('attach', {});
+
+}());

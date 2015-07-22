@@ -1,9 +1,8 @@
 {
-	"globals": {},
-  "moz": true,
-	"esnext": true,
-	"browser" : false,
-	"node" : true,
+  "moz": false,
+	"esnext": false,
+	"browser" : true,
+	"node" : false,
 	"devel" : false,
 
 	"bitwise": true,

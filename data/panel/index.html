@@ -1,7 +1,8 @@
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
-    <link href="./axe-panel.css"rel="stylesheet"></link>
+    <link href="panel.css"rel="stylesheet"></link>
     <script id="rowTemplate" type="text/x-handlebars-template">
 	<tr>
 		<th scope="row" class="help">
@@ -65,14 +66,14 @@
 			<div id="list">
 			</div>
 			<div id="details" class="empty">
-				<div id="actions">				
+				<div id="actions">
 					<button class="prev" title="Previous">&lt;</button>
 					<div class="current">
 						<div id="currentNode">
 							n/a
 						</div>
 						<div>
-						 of 
+						 of
 						</div>
 						<div id="nodeCount">
 							n/a
@@ -103,6 +104,7 @@
 			</div>
 		</div>
   </body>
-  <script src="./handlebars.js"></script>
-  <script src="./axe-panel.js"></script>
+  <script src="../handlebars.js"></script>
+  <script src="messaging.js"></script>
+  <script src="panel.js"></script>
 </html>

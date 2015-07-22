@@ -9,5 +9,5 @@
     "firefox": ">=34"
   },
   "version": "0.2.0",
-  "main": "lib/main.js"
+  "main": "lib/index.js"
 }
