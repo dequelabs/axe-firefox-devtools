@@ -81,7 +81,7 @@
       window.postMessage({
         target: 'addon',
         command: 'highlight',
-        node: e.target.dataset.element
+        node: JSON.parse(e.target.dataset.element)
       }, '*');
     }
     if (e.target.classList.contains('rule')) {
@@ -132,7 +132,7 @@
       window.postMessage({
         command: 'inspect',
         target: 'addon',
-        node: e.target.parentNode.dataset.element
+        node: JSON.parse(e.target.parentNode.dataset.element)
       }, '*');
     }
     displayNodeDetails(current);
@@ -144,14 +144,14 @@
       window.postMessage({
         command: 'inspect',
         target: 'addon',
-        node: e.target.parentNode.dataset.element
+        node: JSON.parse(e.target.parentNode.dataset.element)
       }, '*');
       e.stopPropagation();
     } else if (e.target.classList.contains('highlight')) {
       window.postMessage({
         command: 'highlight',
         target: 'addon',
-        node: e.target.parentNode.dataset.element
+        node: JSON.parse(e.target.parentNode.dataset.element)
       }, '*');
       e.stopPropagation();
     }
@@ -162,8 +162,9 @@
 
   function refresh(showMsg) {
     details.classList.add('empty');
-    list.innerHTML = showMsg ? '<p>Click the "Analyze" button to analyze this page for accessibility violations.</p>' : '';
+    list.innerHTML = showMsg === true ? '<p>Click the "Analyze" button to analyze this page for accessibility violations.</p>' : '';
     results = null;
+    //$id('analyze').focus();
   }
 
   function displayNodeList(index) {
@@ -178,7 +179,7 @@
     document.getElementById('currentNode').textContent = nodeNumber + 1;
     document.getElementById('html').getElementsByTagName('td')[0].innerHTML = node.target[0].replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
     document.getElementById('reason').getElementsByTagName('td')[0].innerHTML = summary(node);
-    document.getElementById('html').getElementsByTagName('td')[1].setAttribute('data-element', JSON.stringify(node.target));
+    document.getElementById('html').getElementsByTagName('td')[1].dataset.element = JSON.stringify(node.target);
     window.postMessage({
       "command": "highlight",
       "target": "addon",
@@ -187,7 +188,7 @@
   }
 	function receive(event) {
 		if (event.data.command === 'refresh') {
-      refresh();
+      refresh(true);
 			return;
 		}
     refresh(false);

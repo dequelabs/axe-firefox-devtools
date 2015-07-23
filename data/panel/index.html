@@ -1,110 +1,112 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link href="panel.css"rel="stylesheet"></link>
-    <script id="rowTemplate" type="text/x-handlebars-template">
-	<tr>
-		<th scope="row" class="help">
-			<a href="javascript:;" class="rule" data-index="{{index}}">
+
+<head>
+  <meta charset="utf-8">
+  <link href="panel.css" rel="stylesheet"></link>
+  <script id="rowTemplate" type="text/x-handlebars-template">
+    <tr>
+      <th scope="row" class="help">
+        <a href="javascript:;" class="rule" data-index="{{index}}">
 				{{{help}}}
 			</a>
-		</th>
-		<td scope="row">
-			<a target="_blank" href="{{helpUrl}}">?</a>
-		</td>
-		<td class="count">
-			{{count}}
-		</td>
-		<td class="impact">
-			{{impact}}
-		</td>
-	</tr>
-    </script>
-    <script id="tableTemplate" type="text/x-handlebars-template">
-	<table>
-		<tr>
-		<th scope="col">Description</th>
-		<th scope="col">Info</th>
-		<th scope="col">Count</th>
-		<th scope="col">Impact</th>
-		</tr>
-		{{#violations violationList}}{{/violations}}
-	</table>
-    </script>
-    <script id="relatedListTemplate" type="text/x-handlebars-template">
-	<ul>Related Nodes:
-		{{#related relatedNodeList}}{{/related}}
-	</ul>
-    </script>
-    <script id="relatedNodeTemplate" type="text/x-handlebars-template">
-	<li>
-		<a href="javascript:;" class="related-node" data-element="{{targetArrayString}}">
+      </th>
+      <td scope="row">
+        <a target="_blank" href="{{helpUrl}}">?</a>
+      </td>
+      <td class="count">
+        {{count}}
+      </td>
+      <td class="impact">
+        {{impact}}
+      </td>
+    </tr>
+  </script>
+  <script id="tableTemplate" type="text/x-handlebars-template">
+    <table>
+      <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Info</th>
+        <th scope="col">Count</th>
+        <th scope="col">Impact</th>
+      </tr>
+      {{#violations violationList}}{{/violations}}
+    </table>
+  </script>
+  <script id="relatedListTemplate" type="text/x-handlebars-template">
+    <ul>Related Nodes: {{#related relatedNodeList}}{{/related}}
+    </ul>
+  </script>
+  <script id="relatedNodeTemplate" type="text/x-handlebars-template">
+    <li>
+      <a href="javascript:;" class="related-node" data-element="{{targetArrayString}}">
 			{{targetString}}
 		</a>
-	</li>
-    </script>
-    <script id="reasonsTemplate" type="text/x-handlebars-template">
-	<p class="summary">
-		<ul class="failure-message">
-			{{#reasons reasonsList}}{{/reasons}}
-		</ul>
-	</p>
-    </script>
-    <script id="failureTemplate" type="text/x-handlebars-template">
-	<li>
-		{{message}}
-		{{{relatedNodesMessage}}}
-	</li>
-	</script>
-  </head>
-  <body>
-  		<div id="toolbar">
-  			<button id="analyze">Analyze</button>
-  		</div>
-  		<div id="results">
-			<div id="list">
-			</div>
-			<div id="details" class="empty">
-				<div id="actions">
-					<button class="prev" title="Previous">&lt;</button>
-					<div class="current">
-						<div id="currentNode">
-							n/a
-						</div>
-						<div>
-						 of
-						</div>
-						<div id="nodeCount">
-							n/a
-						</div>
-					</div>
-					<button class="next" title="Next">&gt;</button>
-				</div>
-				<table id="detailsItem">
-					<tr id="html">
-						<th scope="row">
-							Selector
-						</th>
-						<td>
-						</td>
-						<td>
-							<button class="inspect">inspect</button><br/>
-							<button class="highlight">highlight</button>
-						</td>
-					</tr>
-					<tr id="reason">
-						<th scope="row">
-							Reason
-						</th>
-						<td colspan="2">
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-  </body>
-  <script src="../handlebars.js"></script>
-  <script src="messaging.js"></script>
-  <script src="panel.js"></script>
+    </li>
+  </script>
+  <script id="reasonsTemplate" type="text/x-handlebars-template">
+    <p class="summary">
+      <ul class="failure-message">
+        {{#reasons reasonsList}}{{/reasons}}
+      </ul>
+    </p>
+  </script>
+  <script id="failureTemplate" type="text/x-handlebars-template">
+    <li>
+      {{message}} {{{relatedNodesMessage}}}
+    </li>
+  </script>
+</head>
+
+<body>
+  <div id="toolbar">
+    <button id="analyze">Analyze</button>
+  </div>
+  <div id="results">
+    <div id="list">
+    </div>
+    <div id="details" class="empty">
+      <div id="actions">
+        <button class="prev" title="Previous">&lt;</button>
+        <div class="current">
+          <div id="currentNode">
+            n/a
+          </div>
+          <div>
+            of
+          </div>
+          <div id="nodeCount">
+            n/a
+          </div>
+        </div>
+        <button class="next" title="Next">&gt;</button>
+      </div>
+      <table id="detailsItem">
+        <tr id="html">
+          <th scope="row">
+            Selector
+          </th>
+          <td>
+          </td>
+          <td>
+            <button class="inspect">inspect</button>
+            <br/>
+            <button class="highlight">highlight</button>
+          </td>
+        </tr>
+        <tr id="reason">
+          <th scope="row">
+            Reason
+          </th>
+          <td colspan="2">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+<script src="../handlebars.js"></script>
+<script src="messaging.js"></script>
+<script src="panel.js"></script>
+
 </html>
