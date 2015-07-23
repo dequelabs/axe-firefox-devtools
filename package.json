@@ -9,5 +9,8 @@
     "firefox": ">=34"
   },
   "version": "0.2.0",
-  "main": "lib/index.js"
+  "main": "lib/index.js",
+  "dependencies": {
+    "menuitem": "0.0.4"
+  }
 }
