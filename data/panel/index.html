@@ -5,46 +5,48 @@
   <link href="panel.css" rel="stylesheet" />
   <link href="chrome://browser/skin/devtools/widgets.css" rel="stylesheet" />
 
-  <script type="text/x-handlebars-template" id="rowTemplate">
-    <li class="side-menu-widget-item side-menu-widget-item-contents">
-      <a href="javascript:;" class="rule" data-index="{{index}}">
-        <span class="help">
-				  {{help}}
-        </span>
-        <span class="count">
-          {{count}}
-        </span>
-			</a>
-    </li>
-  </script>
-  <script type="text/x-handlebars-template" id="tableTemplate">
+  <script type="text/x-handlebars-template" id="listTemplate">
     <ol class="side-menu-widget-group">
-      {{#violations violationList}}{{/violations}}
+      {{#each violations}}
+        <li class="side-menu-widget-item side-menu-widget-item-contents">
+          <a href="javascript:;" class="rule" data-index="{{@index}}">
+            <span class="help">
+    				  {{this.help}}
+            </span>
+            <span class="count">
+              {{this.nodes.length}}
+            </span>
+    			</a>
+        </li>
+      {{/each}}
     </ol>
   </script>
-  <script type="text/x-handlebars-template" id="relatedListTemplate">
-    <h3>Related Nodes:</h3>
-    <ul>{{#related relatedNodeList}}{{/related}}
+  <script type="text/x-handlebars-template" id="detailsTemplate">
+    <p class="description">{{rule.description}}</p>
+    <p class="impact">{{node.impact}}</p>
+    <ul class="tags">
+      {{#each rule.tags}}
+        <li>{{this}}</li>
+      {{/each}}
     </ul>
-  </script>
-  <script type="text/x-handlebars-template" id="relatedNodeTemplate">
-    <li>
-      <a href="javascript:;" class="related-node theme-link" data-element="{{targetArrayString}}">
-  			{{targetString}}
-  		</a>
-    </li>
-  </script>
-  <script type="text/x-handlebars-template" id="reasonsTemplate">
-    <p class="summary">
-      <ul class="failure-message">
-        {{#reasons reasonsList}}{{/reasons}}
-      </ul>
-    </p>
-  </script>
-  <script type="text/x-handlebars-template" id="failureTemplate">
-    <li>
-      {{message}} {{{relatedNodesMessage}}}
-    </li>
+    <div class="description">
+      {{#if node.any}}
+        <h2>Fix any of the following:</h2>
+        <ul>
+          {{#each node.any}}
+            <li>{{this.message}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
+      {{#if node.all}}
+        <h2>Fix all of the following:</h2>
+        <ul>
+          {{#each node.all}}
+            <li>{{this.message}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </div>
   </script>
 </head>
 
@@ -81,27 +83,7 @@
           </button>
         </div>
         <div class="axe-issue-details-content">
-          <table id="detailsItem">
-            <tr id="html">
-              <th scope="row">
-                Selector
-              </th>
-              <td>
-              </td>
-              <td>
-                <button class="inspect">inspect</button>
-                <br/>
-                <button class="highlight">highlight</button>
-              </td>
-            </tr>
-            <tr id="reason">
-              <th scope="row">
-                Reason
-              </th>
-              <td colspan="2">
-              </td>
-            </tr>
-          </table>
+          <div id="issue-details"></div>
         </div>
       </div>
     </div>
