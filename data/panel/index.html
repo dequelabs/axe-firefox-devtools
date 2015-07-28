@@ -1,57 +1,47 @@
 <!doctype html>
-<html>
-
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
-  <link href="panel.css" rel="stylesheet"></link>
-  <script id="rowTemplate" type="text/x-handlebars-template">
-    <tr>
-      <th scope="row" class="help">
-        <a href="javascript:;" class="rule" data-index="{{index}}">
-				{{{help}}}
+  <link href="panel.css" rel="stylesheet" />
+  <link href="chrome://browser/skin/devtools/widgets.css" rel="stylesheet" />
+
+  <script type="text/x-handlebars-template" id="rowTemplate">
+    <li class="side-menu-widget-item side-menu-widget-item-contents">
+      <a href="javascript:;" class="rule" data-index="{{index}}">
+        <span class="help">
+				  {{help}}
+        </span>
+        <span class="count">
+          {{count}}
+        </span>
 			</a>
-      </th>
-      <td scope="row">
-        <a target="_blank" href="{{helpUrl}}">?</a>
-      </td>
-      <td class="count">
-        {{count}}
-      </td>
-      <td class="impact">
-        {{impact}}
-      </td>
-    </tr>
-  </script>
-  <script id="tableTemplate" type="text/x-handlebars-template">
-    <table>
-      <tr>
-        <th scope="col">Description</th>
-        <th scope="col">Info</th>
-        <th scope="col">Count</th>
-        <th scope="col">Impact</th>
-      </tr>
-      {{#violations violationList}}{{/violations}}
-    </table>
-  </script>
-  <script id="relatedListTemplate" type="text/x-handlebars-template">
-    <ul>Related Nodes: {{#related relatedNodeList}}{{/related}}
-    </ul>
-  </script>
-  <script id="relatedNodeTemplate" type="text/x-handlebars-template">
-    <li>
-      <a href="javascript:;" class="related-node" data-element="{{targetArrayString}}">
-			{{targetString}}
-		</a>
     </li>
   </script>
-  <script id="reasonsTemplate" type="text/x-handlebars-template">
+  <script type="text/x-handlebars-template" id="tableTemplate">
+    <ol class="side-menu-widget-group">
+      {{#violations violationList}}{{/violations}}
+    </ol>
+  </script>
+  <script type="text/x-handlebars-template" id="relatedListTemplate">
+    <h3>Related Nodes:</h3>
+    <ul>{{#related relatedNodeList}}{{/related}}
+    </ul>
+  </script>
+  <script type="text/x-handlebars-template" id="relatedNodeTemplate">
+    <li>
+      <a href="javascript:;" class="related-node theme-link" data-element="{{targetArrayString}}">
+  			{{targetString}}
+  		</a>
+    </li>
+  </script>
+  <script type="text/x-handlebars-template" id="reasonsTemplate">
     <p class="summary">
       <ul class="failure-message">
         {{#reasons reasonsList}}{{/reasons}}
       </ul>
     </p>
   </script>
-  <script id="failureTemplate" type="text/x-handlebars-template">
+  <script type="text/x-handlebars-template" id="failureTemplate">
     <li>
       {{message}} {{{relatedNodesMessage}}}
     </li>
@@ -59,54 +49,65 @@
 </head>
 
 <body>
-  <div id="toolbar">
-    <button id="analyze">Analyze</button>
-  </div>
-  <div id="results">
-    <div id="list">
-    </div>
-    <div id="details" class="empty">
-      <div id="actions">
-        <button class="prev" title="Previous">&lt;</button>
-        <div class="current">
-          <div id="currentNode">
-            n/a
-          </div>
+  <div class="theme-body devtools-responsive-container devtools-main-content">
+    <div id="results" class="axe-results">
+      <div class="axe-issue-list theme-sidebar side-menu-widget-container">
+        <div id="toolbar" class="devtools-toolbar devtools-toolbarbutton-group side-menu-widget-container">
           <div>
-            of
+            <button id="analyze" class="axe-analyze-button devtools-toolbarbutton" label="">Analyze</button>
           </div>
-          <div id="nodeCount">
-            n/a
-          </div>
+          <div id="status" class="axe-analyze-status"></div>
         </div>
-        <button class="next" title="Next">&gt;</button>
+        <div id="list" class="axe-issue-list-nav">
+        </div>
       </div>
-      <table id="detailsItem">
-        <tr id="html">
-          <th scope="row">
-            Selector
-          </th>
-          <td>
-          </td>
-          <td>
-            <button class="inspect">inspect</button>
-            <br/>
-            <button class="highlight">highlight</button>
-          </td>
-        </tr>
-        <tr id="reason">
-          <th scope="row">
-            Reason
-          </th>
-          <td colspan="2">
-          </td>
-        </tr>
-      </table>
+      <div class="axe-issue-details empty" id="details">
+        <div id="actions" class="devtools-toolbar devtools-toolbarbutton-group">
+          <button class="prev devtools-toolbarbutton" aria-label="Previous" label="">
+            <span aria-hidden="true">&lt;</span>
+          </button>
+          <div class="current">
+            Violation
+            <span id="currentNode">
+              n/a
+            </span>
+            of
+            <span id="nodeCount">
+              n/a
+            </span>
+          </div>
+          <button class="next devtools-toolbarbutton" aria-label="Next" label="">
+            <span aria-hidden="true">&gt;</span>
+          </button>
+        </div>
+        <div class="axe-issue-details-content">
+          <table id="detailsItem">
+            <tr id="html">
+              <th scope="row">
+                Selector
+              </th>
+              <td>
+              </td>
+              <td>
+                <button class="inspect">inspect</button>
+                <br/>
+                <button class="highlight">highlight</button>
+              </td>
+            </tr>
+            <tr id="reason">
+              <th scope="row">
+                Reason
+              </th>
+              <td colspan="2">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
+  <script src="../handlebars.js"></script>
+  <script src="messaging.js"></script>
+  <script src="panel.js"></script>
 </body>
-<script src="../handlebars.js"></script>
-<script src="messaging.js"></script>
-<script src="panel.js"></script>
-
 </html>

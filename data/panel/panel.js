@@ -1,4 +1,5 @@
 /*global Handlebars */
+/*jshint maxstatements: false */
 (function(window) {
   var results, rule;
 
@@ -75,43 +76,44 @@
     return retVal;
   }
 
-
   document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('related-node')) {
+    var target = e.target;
+    if (target.classList.contains('related-node')) {
       window.postMessage({
         target: 'addon',
         command: 'highlight',
-        node: JSON.parse(e.target.dataset.element)
+        node: JSON.parse(target.dataset.element)
       }, '*');
+      return;
     }
-    if (e.target.classList.contains('rule')) {
+
+    if (target.classList.contains('help')) {
+      target = target.parentNode;
+    }
+
+    if (target.classList.contains('rule')) {
       details.classList.remove('empty');
-      displayNodeList(parseInt(e.target.getAttribute('data-index'), 10));
-      Array.prototype.slice.call(document.querySelectorAll('.rule.selected')).forEach(function(node) {
+      displayNodeList(parseInt(target.getAttribute('data-index'), 10));
+      Array.prototype.slice.call(document.querySelectorAll('.selected')).forEach(function(node) {
         node.classList.remove('selected');
         node.removeAttribute('title');
       });
-      e.target.classList.add('selected');
-      e.target.setAttribute('title', 'selected');
+      target.parentNode.classList.add('selected');
+      target.setAttribute('title', 'selected');
+      return;
     }
-  }, false);
 
-  document.addEventListener('mouseover', function(e) {
-    if (e.target.classList.contains('related-node')) {
-      e.target.classList.add('highlighted');
-    }
-    if (e.target.classList.contains('rule')) {
-      e.target.classList.add('highlighted');
-    }
-  }, false);
-
-  document.addEventListener('mouseout', function(e) {
-    if (e.target.classList.contains('related-node')) {
-      e.target.classList.remove('highlighted');
-    }
-    if (e.target.classList.contains('rule')) {
-      e.target.classList.remove('highlighted');
-    }
+		if (e.target.classList.contains('axe-analyze-button')) {
+      status.innerHTML = 'Analyzing...';
+      setTimeout(function () {
+  			window.postMessage({
+  				target: 'addon',
+  				command: 'analyze'
+  			}, '*');
+      }, 0);
+      e.stopPropagation();
+      return;
+		}
   }, false);
 
   document.getElementById('actions').addEventListener('click', function(e) {
@@ -147,17 +149,22 @@
         node: JSON.parse(e.target.parentNode.dataset.element)
       }, '*');
       e.stopPropagation();
-    } else if (e.target.classList.contains('highlight')) {
+      return;
+    }
+    if (e.target.classList.contains('highlight')) {
       window.postMessage({
         command: 'highlight',
         target: 'addon',
         node: JSON.parse(e.target.parentNode.dataset.element)
       }, '*');
+
       e.stopPropagation();
+      return;
     }
   }, false);
 
   var list = document.getElementById("list");
+  var status = document.getElementById("status");
   var details = document.getElementById("details");
 
   function refresh(showMsg) {
@@ -194,17 +201,19 @@
     refresh(false);
   	results = event.data.data;
 		if (results.violations.length) {
+      var total = 0;
 			var violations = results.violations.map(function (rule, i) {
+        total += rule.nodes.length;
 				return {
 					impact: rule.impact,
-					help: rule.help.replace(/</gi, '&lt;').replace(/>/gi, '&gt;'),
+					help: rule.help,
 					bestpractice: (rule.tags.indexOf('best-practice') !== -1),
 					helpUrl: rule.helpUrl,
 					count: rule.nodes.length,
 					index: i
 				};
 			});
-
+      status.innerHTML = total + ' violations found.';
 			list.innerHTML = compiledTableTemplate({violationList: violations});
 		} else {
 			details.classList.add('empty');
