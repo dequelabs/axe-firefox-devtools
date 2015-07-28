@@ -1,11 +1,13 @@
 /*global Handlebars */
 /*jshint maxstatements: false */
 (function(window) {
-  var results, rule;
+  var violations, rule;
 
   function $id(id) {
     return document.getElementById(id);
   }
+
+  Handlebars.registerHelper("stringify", JSON.stringify);
 
   var list = $id("list");
   var status = $id("status");
@@ -49,10 +51,33 @@
   				target: 'addon',
   				command: 'analyze'
   			}, '*');
-      }, 0);
+      }, 1);
       e.stopPropagation();
       return;
 		}
+  }, false);
+
+  $id('issue-details').addEventListener('click', function(e) {
+    var target = e.target;
+    if (target.classList.contains('inspect')) {
+      window.postMessage({
+        command: 'inspect',
+        target: 'addon',
+        node: JSON.parse(target.dataset.element)
+      }, '*');
+      e.stopPropagation();
+      return;
+    }
+    if (target.classList.contains('highlight')) {
+      window.postMessage({
+        command: 'highlight',
+        target: 'addon',
+        node: JSON.parse(target.dataset.element)
+      }, '*');
+
+      e.stopPropagation();
+      return;
+    }
   }, false);
 
   $id('actions').addEventListener('click', function(e) {
@@ -69,49 +94,47 @@
       if (current < (max - 1)) {
         current += 1;
       }
-    } else if (e.target.classList.contains('inspect')) {
-      window.postMessage({
-        command: 'inspect',
-        target: 'addon',
-        node: JSON.parse(e.target.parentNode.dataset.element)
-      }, '*');
     }
     displayNodeDetails(current);
     e.stopPropagation();
   }, false);
 
-/*
-  $id('detailsItem').addEventListener('click', function(e) {
-    if (e.target.classList.contains('inspect')) {
-      window.postMessage({
-        command: 'inspect',
-        target: 'addon',
-        node: JSON.parse(e.target.parentNode.dataset.element)
-      }, '*');
-      e.stopPropagation();
-      return;
-    }
-    if (e.target.classList.contains('highlight')) {
-      window.postMessage({
-        command: 'highlight',
-        target: 'addon',
-        node: JSON.parse(e.target.parentNode.dataset.element)
-      }, '*');
 
-      e.stopPropagation();
-      return;
-    }
-  }, false);
-*/
+
+  function bindButtons(selectorArray) {
+    $id('details-buttons').addEventListener('click', function(e) {
+      var target = e.target;
+      if (target.classList.contains('inspect')) {
+        window.postMessage({
+          command: 'inspect',
+          target: 'addon',
+          node: JSON.parse(target.dataset.element)
+        }, '*');
+        e.stopPropagation();
+        return;
+      }
+      if (target.classList.contains('highlight')) {
+        window.postMessage({
+          command: 'highlight',
+          target: 'addon',
+          node: JSON.parse(target)
+        }, '*');
+
+        e.stopPropagation();
+        return;
+      }
+    }, false);
+  }
+
   function refresh(showMsg) {
     details.classList.add('empty');
     list.innerHTML = showMsg === true ? '<p>Click the "Analyze" button to analyze this page for accessibility violations.</p>' : '';
-    results = null;
+    violations = [];
     //$id('analyze').focus();
   }
 
   function displayNodeList(index) {
-    rule = results.violations[index];
+    rule = violations[index];
     $id('nodeCount').textContent = rule.nodes.length;
     displayNodeDetails(0);
     $id('actions').querySelector('button').focus();
@@ -119,16 +142,15 @@
 
   function displayNodeDetails(nodeNumber) {
     var node = rule.nodes[nodeNumber];
+    var impact = $id('impact');
     $id('currentNode').textContent = nodeNumber + 1;
+    impact.textContent = node.impact.charAt(0).toUpperCase() + node.impact.slice(1);
+    impact.className = node.impact;
     $id('issue-details').innerHTML = compiledDetailsTemplate({
       rule: rule,
       node: node
     });
-    /*
-    $id('html').getElementsByTagName('td')[0].innerHTML = node.target[0].replace(/</gi, '&lt;').replace(/>/gi, '&gt;');
-    $id('reason').getElementsByTagName('td')[0].innerHTML = summary(node);
-    $id('html').getElementsByTagName('td')[1].dataset.element = JSON.stringify(node.target);
-    */
+    bindButtons(node.target);
     window.postMessage({
       "command": "highlight",
       "target": "addon",
@@ -141,13 +163,29 @@
 			return;
 		}
     refresh(false);
-  	results = event.data.data;
+  	var results = event.data.data;
 		if (results.violations.length) {
-			var total = results.violations.reduce(function (acc, rule) {
-        return acc + rule.nodes.length;
+      var total = 0;
+			violations = results.violations.map(function (rule) {
+        total += rule.nodes.length;
+        return {
+          help: rule.help,
+          description: rule.description,
+          helpUrl: rule.helpUrl,
+          tags: rule.tags,
+          nodes: rule.nodes.map(function (node) {
+            return {
+              impact: node.impact,
+              target: node.target,
+              html: node.html.replace(/\t/g, '  '),
+              any: node.any,
+              all: node.all.concat(node.none)
+            };
+          })
+        };
 			}, 0);
       status.innerHTML = total + ' violations found.';
-			list.innerHTML = compiledListTemplate({ violations: results.violations });
+			list.innerHTML = compiledListTemplate({ violations: violations });
 		} else {
 			details.classList.add('empty');
 			list.innerHTML = '<p>Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS</p>';

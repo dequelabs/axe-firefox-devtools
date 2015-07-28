@@ -22,19 +22,46 @@
     </ol>
   </script>
   <script type="text/x-handlebars-template" id="detailsTemplate">
-    <p class="description">{{rule.description}}</p>
-    <p class="impact">{{node.impact}}</p>
-    <ul class="tags">
-      {{#each rule.tags}}
-        <li>{{this}}</li>
-      {{/each}}
-    </ul>
+    <div class="axe-devtools-content-group">
+      <div class="axe-devtools-content-item">
+        <p class="description">{{rule.description}} <a href="{{rule.helpUrl}}" class="theme-link" target="_blank">(More Info)</a></p>
+      </div>
+      <div class="axe-devtools-content-item">
+        <ul class="tags">
+          {{#each rule.tags}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+        <div id="details-buttons">
+          <button type="button" class="inspect devtools-toolbarbutton" label="" data-element="{{stringify node.target}}">Inspect</button>
+          <button type="button" class="highlight devtools-toolbarbutton" label="" data-element="{{stringify node.target}}">Highlight</button>
+        </div>
+      </div>
+    </div>
+    <div class="axe-devtools-content-target">
+      <h2>Target:</h2>
+      <code>{{node.target}}</code>
+    </div>
+    <h2>HTML:</h2>
+    <pre><code>{{node.html}}</code></pre>
     <div class="description">
+      <h2>Summary:</h2>
       {{#if node.any}}
         <h2>Fix any of the following:</h2>
         <ul>
           {{#each node.any}}
-            <li>{{this.message}}</li>
+            <li><span class="message">{{this.message}}</span>
+              {{#if this.relatedNodes}}
+                <h3>Related Nodes:</h3>
+                <ul>
+                  {{#each this.relatedNodes}}
+                    <li><a href="javascript:;" class="inspect theme-link" data-element="{{stringify this.target}}">
+                      {{this.target}}
+                    </a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </li>
           {{/each}}
         </ul>
       {{/if}}
@@ -42,7 +69,18 @@
         <h2>Fix all of the following:</h2>
         <ul>
           {{#each node.all}}
-            <li>{{this.message}}</li>
+            <li><span class="message">{{this.message}}</span>
+              {{#if this.relatedNodes}}
+                <h3>Related Nodes:</h3>
+                <ul>
+                  {{#each this.relatedNodes}}
+                    <li><a href="javascript:;" class="inspect theme-link" data-element="{{stringify this.target}}">
+                      {{this.target}}
+                    </a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </li>
           {{/each}}
         </ul>
       {{/if}}
@@ -58,7 +96,7 @@
           <div>
             <button id="analyze" class="axe-analyze-button devtools-toolbarbutton" label="">Analyze</button>
           </div>
-          <div id="status" class="axe-analyze-status"></div>
+          <div id="status" class="axe-analyze-status" aria-live="polite"></div>
         </div>
         <div id="list" class="axe-issue-list-nav">
         </div>
@@ -68,7 +106,7 @@
           <button class="prev devtools-toolbarbutton" aria-label="Previous" label="">
             <span aria-hidden="true">&lt;</span>
           </button>
-          <div class="current">
+          <div class="axe-devtools-toolbaritem">
             Violation
             <span id="currentNode">
               n/a
@@ -77,6 +115,9 @@
             <span id="nodeCount">
               n/a
             </span>
+          </div>
+          <div class="axe-devtools-toolbaritem right">
+            <span id="impact">n/a</span>
           </div>
           <button class="next devtools-toolbarbutton" aria-label="Next" label="">
             <span aria-hidden="true">&gt;</span>

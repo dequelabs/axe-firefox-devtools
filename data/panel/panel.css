@@ -60,6 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0;
 	margin: 0;
 }
+
 .devtools-toolbar {
 	flex: 0 0 auto;
 	display: flex;
@@ -70,8 +71,12 @@ h1, h2, h3, h4, h5, h6 {
 	flex: 1 auto;
 }
 
-.devtools-toolbar .current {
-	text-align: center;
+.devtools-toolbar .axe-devtools-toolbaritem {
+	padding: 0 8px;
+}
+
+.devtools-toolbar .axe-devtools-toolbaritem.right {
+	text-align: right;
 }
 
 .axe-issue-list .axe-analyze-status {
@@ -130,6 +135,106 @@ h1, h2, h3, h4, h5, h6 {
 	-moz-margin-start: 4px;
 }
 
+.axe-issue-details-content {
+	padding: 0 12px 8px;
+}
+
+.axe-devtools-content-group {
+	display: flex;
+	flex-direction: row;
+	margin: 0 0 1em;
+}
+
+.axe-devtools-content-group > div {
+	flex: 3;
+}
+
+.axe-devtools-content-group > div:last-of-type {
+	text-align: right;
+	flex: 1;
+}
+
+.theme-dark .axe-issue-details-content .devtools-toolbarbutton {
+	background: rgba(255, 255, 255, .25);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+.theme-light .axe-issue-details-content .devtools-toolbarbutton {
+	border-color: rgba(0, 0, 0, .25);
+	border: 1px solid rgba(0, 0, 0, .25);
+}
+
+.axe-issue-details-content .tags {
+	margin: .5em 0 0;
+	padding: 0;
+}
+
+.axe-issue-details-content .tags li {
+	display: inline-block;
+	margin-left: 1ex;
+	margin-bottom: 2px;
+	padding: 3px 6px;
+	border-radius: 1em;
+	background: rgba(255, 255, 255, .1);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.theme-light .tags li {
+	background: rgba(0, 0, 0, .1);
+	border-color: rgba(0, 0, 0, .25);
+}
+
+.axe-issue-details-content .description a {
+	display: block;
+	margin: .25em 0 1em;
+}
+
+.axe-devtools-content-target h2 {
+	display: inline;
+}
+
+.axe-issue-details-content pre {
+	border-radius: 4px;
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	padding: 9px;
+	background: rgba(255, 255, 255, .1);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.theme-light .axe-issue-details-content pre {
+	background: rgba(0, 0, 0, .1);
+	border-color: rgba(0, 0, 0, .25);
+}
+
 #details.empty {
 	display:none;
+}
+
+#impact {
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+#impact::before {
+	display: inline-block;
+	content: " ";
+	width: 2ex;
+	height: 2ex;
+	border-radius: 1ex;
+	margin: .5em .375em 0 0;
+	vertical-align: top;
+	box-shadow: -.5ex -.5ex 1ex rgba(0, 0, 0, 0.25) inset,
+		1px 1px 1px rgba(0, 0, 0, 0.15);
+	background: green;
+}
+
+#impact.critical::before {
+	background: red;
+}
+#impact.serious::before {
+	background: orange;
+}
+#impact.moderate::before {
+	background: yellow;
 }
