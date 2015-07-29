@@ -7,6 +7,7 @@ html, body {
 	flex-direction: column;
 	flex: 0 0 100%;
 	font-size: 3mm;
+	font-family: sans-serif;
 }
 
 .theme-link {
@@ -21,6 +22,17 @@ h1, h2, h3, h4, h5, h6 {
 	height: 100%;
 }
 
+.init .axe-issue-details, .axe-splash {
+	display: none;
+}
+.init .axe-splash {
+	display: block;
+}
+
+#details.empty .devtools-toolbar, #details.no-violations .devtools-toolbar {
+	display:none;
+}
+
 .devtools-main-content {
 	display: flex;
 	height: 100%;
@@ -31,7 +43,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .axe-results {
-	font-family: sans-serif;
 	display: flex;
 	flex-direction: row;
 }
@@ -207,10 +218,6 @@ h1, h2, h3, h4, h5, h6 {
 	border-color: rgba(0, 0, 0, .25);
 }
 
-#details.empty {
-	display:none;
-}
-
 #impact {
 	font-weight: bold;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
@@ -237,4 +244,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 #impact.moderate::before {
 	background: yellow;
+}
+
+.axe-message {
+	font-size: 120%;
+	margin: 40px;
+}
+
+.axe-splash .axe-msesage {
+	margin: 20px 80px;
+}
+
+.axe-message button {
+	font-size: 110%;
+	padding: .5em 1em;
 }

@@ -89,7 +89,7 @@
 </head>
 
 <body>
-  <div class="theme-body devtools-responsive-container devtools-main-content">
+  <div id="wrap" class="theme-body devtools-responsive-container devtools-main-content init">
     <div id="results" class="axe-results">
       <div class="axe-issue-list theme-sidebar side-menu-widget-container">
         <div id="toolbar" class="devtools-toolbar devtools-toolbarbutton-group side-menu-widget-container">
@@ -124,8 +124,11 @@
           </button>
         </div>
         <div class="axe-issue-details-content">
-          <div id="issue-details"></div>
+          <div id="issue-details" class="axe-issue-details"></div>
         </div>
+      </div>
+      <div id="splash" class="axe-splash">
+        <p class="axe-message"><button type="button" class="devtools-toolbarbutton standalone axe-analyze-button">Analyze</button> this page for accessibility violations.</p>
       </div>
     </div>
   </div>

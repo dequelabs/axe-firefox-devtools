@@ -101,7 +101,7 @@
 
 
 
-  function bindButtons(selectorArray) {
+  function bindButtons() {
     $id('details-buttons').addEventListener('click', function(e) {
       var target = e.target;
       if (target.classList.contains('inspect')) {
@@ -128,9 +128,14 @@
 
   function refresh(showMsg) {
     details.classList.add('empty');
-    list.innerHTML = showMsg === true ? '<p>Click the "Analyze" button to analyze this page for accessibility violations.</p>' : '';
+    list.innerHTML = '';
+    status.innerHTML = '';
+    $id('issue-details').innerHTML = '';
+    if (showMsg) {
+      $id('wrap').classList.add('init');
+      $id('splash').querySelector('button').focus();
+    }
     violations = [];
-    //$id('analyze').focus();
   }
 
   function displayNodeList(index) {
@@ -164,7 +169,9 @@
 		}
     refresh(false);
   	var results = event.data.data;
+    $id('wrap').classList.remove('init');
 		if (results.violations.length) {
+      details.classList.remove('no-violations');
       var total = 0;
 			violations = results.violations.map(function (rule) {
         total += rule.nodes.length;
@@ -187,10 +194,11 @@
       status.innerHTML = total + ' violations found.';
 			list.innerHTML = compiledListTemplate({ violations: violations });
 		} else {
-			details.classList.add('empty');
-			list.innerHTML = '<p>Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS</p>';
+      details.classList.add('no-violations');
+      status.innerHTML = 'No violations found.';
+			$id('issue-details').innerHTML = '<p class="axe-message">Congratulations! No accessibility violations found. Now you should perform manual testing using assistive technologies like NVDA, VoiceOver and JAWS.</p>';
 		}
 	}
   window.receive = receive;
-  refresh();
+  refresh(true);
 })(this);
