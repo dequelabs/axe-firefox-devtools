@@ -20,7 +20,7 @@
 	"nomen": false,
 	"onevar": false,
 	"plusplus": false,
-	"quotmark": false,
+	"quotmark": "single",
 	"regexp": true,
 	"undef": true,
 	"unused": true,

@@ -1,4 +1,5 @@
-
+/*global self, axe */
+/*jshint eqeqeq: false */
 (function () {
 	if (document.defaultView.top != document.defaultView) {
 		return;

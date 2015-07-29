@@ -7,11 +7,11 @@
     return document.getElementById(id);
   }
 
-  Handlebars.registerHelper("stringify", JSON.stringify);
+  Handlebars.registerHelper('stringify', JSON.stringify);
 
-  var list = $id("list");
-  var status = $id("status");
-  var details = $id("details");
+  var list = $id('list');
+  var status = $id('status');
+  var details = $id('details');
 
   // Setup handlebars templates
   var compiledListTemplate = Handlebars.compile($id('listTemplate').innerHTML),
@@ -157,9 +157,9 @@
     });
     bindButtons(node.target);
     window.postMessage({
-      "command": "highlight",
-      "target": "addon",
-      "node": node.target
+      command: 'highlight',
+      target: 'addon',
+      node: node.target
     }, '*');
   }
 	function receive(event) {
