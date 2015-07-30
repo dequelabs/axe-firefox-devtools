@@ -1,9 +1,9 @@
 {
   "name": "axe-firefox-devtools",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "homepage": "https://github.com/dequelabs/axe-firefox-devtools",
   "authors": [
-    "Dylan Barrell <david.sturley@deque.com>",
+    "Dylan Barrell <dylan.barrell@deque.com>",
     "David Sturley <david.sturley@deque.com>"
   ],
   "main": "lib/main.js",

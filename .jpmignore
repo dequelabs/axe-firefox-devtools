@@ -1,0 +1,9 @@
+node_modules/grunt
+node_modules/grunt-contrib-copy
+bower_components
+README.md
+Gruntfile.js
+bower.json
+test
+.*
+*.xpi

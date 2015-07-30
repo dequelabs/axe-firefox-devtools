@@ -4,8 +4,8 @@ node_js:
 before_install:
   - npm install -g jpm
   - npm install -g bower
+  - npm install -g grunt-cli
   - bower install
 script:
-  - cp bower_components/axe-core/axe.js data/
-  - cp bower_components/handlebars/handlebars.js data/
+  - grunt build
   - jpm xpi

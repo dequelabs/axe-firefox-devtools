@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <link href="panel.css" rel="stylesheet" />
+  <link href="chrome://browser/skin/devtools/widgets.css" rel="stylesheet" />
+
+  <script type="text/x-handlebars-template" id="listTemplate">
+    <ol class="side-menu-widget-group">
+      {{#each violations}}
+        <li class="side-menu-widget-item side-menu-widget-item-contents">
+          <a href="javascript:;" class="rule" data-index="{{@index}}">
+            <span class="help">
+    				  {{this.help}}
+            </span>
+            <span class="count">
+              {{this.nodes.length}}
+              <span class="offscreen">violations</span>
+            </span>
+    			</a>
+        </li>
+      {{/each}}
+    </ol>
+  </script>
+  <script type="text/x-handlebars-template" id="detailsTemplate">
+    <div class="axe-devtools-content-group">
+      <div class="axe-devtools-content-item">
+        <p class="description">{{rule.description}} <a href="{{rule.helpUrl}}" class="theme-link" target="_blank">(More Info)</a></p>
+      </div>
+      <div class="axe-devtools-content-item">
+        <ul class="tags">
+          {{#each rule.tags}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+        <div id="details-buttons">
+          <button type="button" class="inspect devtools-toolbarbutton" label="" data-element="{{stringify node.target}}">Inspect</button>
+          <button type="button" class="highlight devtools-toolbarbutton" label="" data-element="{{stringify node.target}}">Highlight</button>
+        </div>
+      </div>
+    </div>
+    <div class="axe-devtools-content-target">
+      <h2>Target:</h2>
+      <code>{{node.target}}</code>
+    </div>
+    <h2>HTML:</h2>
+    <pre><code>{{node.html}}</code></pre>
+    <div class="description">
+      <h2>Summary:</h2>
+      {{#if node.any}}
+        <h2>Fix any of the following:</h2>
+        <ul>
+          {{#each node.any}}
+            <li><span class="message">{{this.message}}</span>
+              {{#if this.relatedNodes}}
+                <h3>Related Nodes:</h3>
+                <ul>
+                  {{#each this.relatedNodes}}
+                    <li><a href="javascript:;" class="inspect theme-link" data-element="{{stringify this.target}}">
+                      {{this.target}}
+                    </a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+      {{#if node.all}}
+        <h2>Fix all of the following:</h2>
+        <ul>
+          {{#each node.all}}
+            <li><span class="message">{{this.message}}</span>
+              {{#if this.relatedNodes}}
+                <h3>Related Nodes:</h3>
+                <ul>
+                  {{#each this.relatedNodes}}
+                    <li><a href="javascript:;" class="inspect theme-link" data-element="{{stringify this.target}}">
+                      {{this.target}}
+                    </a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </div>
+  </script>
+</head>
+
+<body>
+  <div id="wrap" class="theme-body devtools-responsive-container devtools-main-content init">
+    <div id="results" class="axe-results">
+      <div class="axe-issue-list theme-sidebar side-menu-widget-container">
+        <div id="toolbar" class="devtools-toolbar devtools-toolbarbutton-group side-menu-widget-container">
+          <div>
+            <button id="analyze" class="axe-analyze-button devtools-toolbarbutton" label="">Analyze</button>
+          </div>
+          <div id="status" class="axe-analyze-status" aria-live="polite"></div>
+        </div>
+        <div id="list" class="axe-issue-list-nav">
+        </div>
+      </div>
+      <div class="axe-issue-details empty" id="details">
+        <div id="actions" class="devtools-toolbar devtools-toolbarbutton-group">
+          <button class="prev devtools-toolbarbutton" aria-label="Previous" label="">
+            <span aria-hidden="true">&lt;</span>
+          </button>
+          <div class="axe-devtools-toolbaritem">
+            Violation
+            <span id="currentNode">
+              n/a
+            </span>
+            of
+            <span id="nodeCount">
+              n/a
+            </span>
+          </div>
+          <div class="axe-devtools-toolbaritem right">
+            <span id="impact">n/a</span>
+          </div>
+          <button class="next devtools-toolbarbutton" aria-label="Next" label="">
+            <span aria-hidden="true">&gt;</span>
+          </button>
+        </div>
+        <div class="axe-issue-details-content">
+          <div id="issue-details" class="axe-issue-details"></div>
+        </div>
+      </div>
+      <div id="splash" class="axe-splash">
+        <p class="axe-message"><button type="button" class="devtools-toolbarbutton standalone axe-analyze-button">Analyze</button> this page for accessibility violations.</p>
+      </div>
+    </div>
+  </div>
+  <script src="handlebars.js"></script>
+  <script src="messaging.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

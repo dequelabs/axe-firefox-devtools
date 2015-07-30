@@ -3,11 +3,22 @@
   "title": "aXe DevTools",
   "id": "jid1-CEJgFWewyX7KWA@jetpack",
   "description": "Add accessibility auditing to the Firefox Developer Tools",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dequelabs/axe-core.git"
+  },
   "author": "Dylan Barrell",
   "license": "MPL-2.0",
   "engines": {
     "firefox": ">=34"
   },
-  "version": "0.2.0",
-  "main": "lib/main.js"
+  "version": "0.3.0",
+  "main": "lib/index.js",
+  "dependencies": {
+    "menuitem": "0.0.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.0"
+  }
 }

@@ -1,0 +1,268 @@
+
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 100%;
+	font-size: 3mm;
+	font-family: sans-serif;
+}
+
+.offscreen {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.theme-link {
+	text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: inherit;
+}
+
+.theme-body {
+	height: 100%;
+}
+
+.init .axe-issue-details, .axe-splash {
+	display: none;
+}
+.init .axe-splash {
+	display: block;
+}
+
+#details.empty .devtools-toolbar, #details.no-violations .devtools-toolbar {
+	display:none;
+}
+
+.devtools-main-content {
+	display: flex;
+	height: 100%;
+}
+
+.devtools-main-content > div {
+	flex: 1 0 auto;
+}
+
+.axe-results {
+	display: flex;
+	flex-direction: row;
+}
+@media only screen and (max-width: 580px) {
+	.axe-results {
+		flex-direction: column;
+	}
+	.axe-results .axe-issue-list {
+		flex-basis: 180px;
+	}
+}
+
+.axe-issue-details {
+	flex: 1 1 auto;
+	flex-direction: column;
+	display: flex;
+}
+
+.axe-issue-list {
+	flex: 0 0 300px;
+	flex-direction: column;
+	display: flex;
+}
+
+.axe-issue-list ol {
+	padding: 0;
+	margin: 0;
+}
+
+.devtools-toolbar {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+.devtools-toolbar > div {
+	flex: 1 auto;
+}
+
+.devtools-toolbar .axe-devtools-toolbaritem {
+	padding: 0 8px;
+}
+
+.devtools-toolbar .axe-devtools-toolbaritem.right {
+	text-align: right;
+}
+
+.axe-issue-list .axe-analyze-status {
+	align-self: flex-end;
+	text-align: right;
+	padding: 0 8px;
+}
+
+.axe-issue-list-nav, .axe-issue-details-content {
+	flex: 1 0 auto;
+	overflow: auto;
+	height: 100px;
+}
+
+.axe-issue-list .side-menu-widget-item {
+	padding: 0;
+}
+
+.axe-issue-list .side-menu-widget-item a {
+	display: flex;
+	flex-direction: row;
+	padding: 8px;
+	align-items: center;
+}
+
+.theme-dark .axe-issue-list .side-menu-widget-item.selected {
+	background-image: url("chrome://browser/skin/devtools/itemArrow-dark-ltr.svg"), linear-gradient(#000, #000), linear-gradient(#1D4F73, #1D4F73);
+}
+
+.theme-light .axe-issue-list .side-menu-widget-item.selected {
+	background-image: url("chrome://browser/skin/devtools/itemArrow-ltr.svg"), linear-gradient(#AAA, #AAA), linear-gradient(#4C9ED9, #4C9ED9);
+}
+
+.axe-issue-list .side-menu-widget-item.selected {
+	background-repeat: no-repeat, no-repeat, repeat-x;
+	background-position: right center, right center, left top;
+	background-size: auto auto, 1px auto, auto auto;
+}
+
+.axe-issue-list .help {
+	flex: 1 1 auto;
+}
+
+.axe-issue-list .count {
+	flex: 0 0 auto;
+	display: block;
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.2);
+	min-width: 1em;
+	max-width: 3em;
+	height: 10px;
+	padding: 3px;
+	text-align: center;
+	font-size: 10px;
+	line-height: 12px;
+	-moz-margin-start: 4px;
+}
+
+.axe-issue-details-content {
+	padding: 0 12px 8px;
+}
+
+.axe-devtools-content-group {
+	display: flex;
+	flex-direction: row;
+	margin: 0 0 1em;
+}
+
+.axe-devtools-content-group > div {
+	flex: 3;
+}
+
+.axe-devtools-content-group > div:last-of-type {
+	text-align: right;
+	flex: 1;
+}
+
+.theme-dark .axe-issue-details-content .devtools-toolbarbutton {
+	background: rgba(255, 255, 255, .25);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+.theme-light .axe-issue-details-content .devtools-toolbarbutton {
+	border-color: rgba(0, 0, 0, .25);
+	border: 1px solid rgba(0, 0, 0, .25);
+}
+
+.axe-issue-details-content .tags {
+	margin: .5em 0 0;
+	padding: 0;
+}
+
+.axe-issue-details-content .tags li {
+	display: inline-block;
+	margin-left: 1ex;
+	margin-bottom: 2px;
+	padding: 3px 6px;
+	border-radius: 1em;
+	background: rgba(255, 255, 255, .1);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.theme-light .tags li {
+	background: rgba(0, 0, 0, .1);
+	border-color: rgba(0, 0, 0, .25);
+}
+
+.axe-issue-details-content .description a {
+	display: block;
+	margin: .25em 0 1em;
+}
+
+.axe-devtools-content-target h2 {
+	display: inline;
+}
+
+.axe-issue-details-content pre {
+	border-radius: 4px;
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	padding: 9px;
+	background: rgba(255, 255, 255, .1);
+	border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.theme-light .axe-issue-details-content pre {
+	background: rgba(0, 0, 0, .1);
+	border-color: rgba(0, 0, 0, .25);
+}
+
+#impact {
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+#impact::before {
+	display: inline-block;
+	content: " ";
+	width: 2ex;
+	height: 2ex;
+	border-radius: 1ex;
+	margin: .5em .375em 0 0;
+	vertical-align: top;
+	box-shadow: -.5ex -.5ex 1ex rgba(0, 0, 0, 0.25) inset,
+		1px 1px 1px rgba(0, 0, 0, 0.15);
+	background: green;
+}
+
+#impact.critical::before {
+	background: red;
+}
+#impact.serious::before {
+	background: orange;
+}
+#impact.moderate::before {
+	background: yellow;
+}
+
+.axe-message {
+	font-size: 120%;
+	margin: 40px;
+}
+
+.axe-splash .axe-msesage {
+	margin: 20px 80px;
+}
+
+.axe-message button {
+	font-size: 110%;
+	padding: .5em 1em;
+}
