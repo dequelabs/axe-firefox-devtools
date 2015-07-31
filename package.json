@@ -10,7 +10,7 @@
   "author": "Dylan Barrell",
   "license": "MPL-2.0",
   "engines": {
-    "firefox": ">=34"
+    "firefox": ">=34.0"
   },
   "version": "0.3.0",
   "main": "lib/index.js",
