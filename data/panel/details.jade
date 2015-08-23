@@ -1,0 +1,54 @@
+
+.axe-devtools-content-group.overview
+  .axe-devtools-content-item
+    p.description
+      =rule.description
+      a.theme-link(href=rule.helpUrl target="_blank") (More Info)
+  .axe-devtools-content-item
+    ul.tags
+      each tag in rule.tags
+        li=tag
+    #details-buttons
+      button(type="button" class="inspect devtools-toolbarbutton" label="" data-element=JSON.stringify(node.target)) Inspect
+      button(type="button" class="highlight devtools-toolbarbutton" label="" data-element=JSON.stringify(node.target)) Highlight
+
+.axe-devtools-content-group
+  .axe-devtools-content-target
+    h2 Target:
+    code=node.target
+
+.axe-devtools-content-group
+  h2 HTML:
+  pre
+    code=node.html
+
+.axe-devtools-content-group
+  .description
+    h2 Summary:
+    if node.any.length
+      h2 Fix any of the following:
+      ul
+        each check in node.any
+          li
+            span.message=check.message
+            if check.relatedNodes.length
+              h3 Related Nodes:
+              ul
+                each relatedNode in check.relatedNodes
+                  li
+                    a.theme-link.inspect(href="#" data-element=JSON.stringify(relatedNode.target))
+                      =relatedNode.target
+
+    if node.all.length
+      h2 Fix all of the following:
+      ul
+        each check in node.all
+          li
+            span.message=check.message
+            if check.relatedNodes.length
+              h3 Related Nodes:
+              ul
+                each relatedNode in check.relatedNodes
+                  li
+                    a.theme-link.inspect(href="#" data-element=JSON.stringify(relatedNode.target))
+                      =relatedNode.target
