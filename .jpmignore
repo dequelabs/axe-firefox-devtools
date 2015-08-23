@@ -1,9 +1,11 @@
-node_modules/grunt
-node_modules/grunt-contrib-copy
+node_modules/*
+!node_modules/menuitem
 bower_components
 README.md
+CONTRIBUTING.md
 Gruntfile.js
-bower.json
 test
+tmp
 .*
 *.xpi
+*.jade

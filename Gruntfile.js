@@ -1,16 +1,17 @@
 /*jshint node: true */
+var axe = require('axe-core');
 var path = require('path');
+
 module.exports = function (grunt) {
 	'use strict';
 
-	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		clean: ['tmp'],
+		clean: ['tmp', 'data/axe.js', 'data/panel/templates.js', '*.xpi'],
 		jade: {
 			panel: {
 				options: {
@@ -34,16 +35,13 @@ module.exports = function (grunt) {
 				src: [require.resolve('jade/runtime'), 'tmp/jade/**/*.js'],
 				dest: 'data/panel/templates.js'
 			}
-		},
-		copy: {
-			main: {
-				files: [
-					{ expand: true, flatten: true, src: ['axe.js'], dest: 'data/', cwd: 'bower_components/axe-core/' }
-				]
-			}
 		}
 	});
 
+	grunt.registerTask('axe', function () {
+		grunt.file.write('data/axe.js', axe.source);
+	});
+
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['clean', 'jade', 'concat', 'copy']);
+	grunt.registerTask('build', ['clean', 'jade', 'concat', 'axe']);
 };
