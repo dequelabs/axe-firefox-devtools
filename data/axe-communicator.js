@@ -1,5 +1,3 @@
-/*global self, axe */
-/*jshint eqeqeq: false */
 /*! aXe-firefox-devtools
  * Copyright (c) 2015 Deque Systems, Inc.
  *
@@ -11,8 +9,10 @@
  * distribute or in any file that contains substantial portions of this source
  * code.
  */
+/*global self, axe */
+/*jshint eqeqeq: false */
 
-(function () {
+(function() {
 	if (document.defaultView.top != document.defaultView) {
 		return;
 	}
@@ -21,8 +21,8 @@
 	 * aXe communicator
 	 */
 	self.port.on('axe.analyze', function() {
-		axe.a11yCheck(document, function (results) {
-		    self.port.emit('results', results);
+		axe.a11yCheck(document, function(results) {
+			self.port.emit('results', results);
 		});
 	});
 	self.port.emit('attach', {});

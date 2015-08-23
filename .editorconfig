@@ -13,3 +13,8 @@ trim_trailing_whitespace = true
 [*.json]
 indent_style = space
 indent_size = 2
+
+[*.jade]
+indent_style = tab
+indent_size = 1
+trim_trailing_whitespace = false

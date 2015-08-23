@@ -1,0 +1,9 @@
+
+h2 Results
+ol.side-menu-widget-group
+  each violation, index in violations
+    li.side-menu-widget-item.side-menu-widget-item-contents
+      a.rule(href="#" data-index=index)
+        span.help=violation.help
+        span.count= violation.nodes.length
+          span.offscreen violations

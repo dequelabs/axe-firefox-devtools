@@ -157,17 +157,16 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0 12px 8px;
 }
 
-.axe-devtools-content-group {
+.axe-devtools-content-group.overview {
 	display: flex;
 	flex-direction: row;
-	margin: 0 0 1em;
 }
 
-.axe-devtools-content-group > div {
-	flex: 3;
+.axe-devtools-content-group.overview > div {
+	flex: 2;
 }
 
-.axe-devtools-content-group > div:last-of-type {
+.axe-devtools-content-group.overview > div:last-of-type {
 	text-align: right;
 	flex: 1;
 }
@@ -208,6 +207,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .axe-devtools-content-target h2 {
 	display: inline;
+	margin-right: 1ex;
 }
 
 .axe-issue-details-content pre {
