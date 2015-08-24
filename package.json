@@ -1,7 +1,6 @@
 {
   "name": "axe-firefox-devtools",
   "title": "aXe DevTools",
-  "id": "jid1-CEJgFWewyX7KWA@jetpack",
   "description": "Add accessibility auditing to the Firefox Developer Tools",
   "repository": {
     "type": "git",
@@ -12,7 +11,7 @@
   "engines": {
     "firefox": ">=38.0"
   },
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "lib/index.js",
   "dependencies": {
     "menuitem": "0.0.4"
