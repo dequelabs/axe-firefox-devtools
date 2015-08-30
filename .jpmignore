@@ -1,6 +1,4 @@
-node_modules/*
-!node_modules/menuitem
-bower_components
+node_modules
 README.md
 CONTRIBUTING.md
 Gruntfile.js

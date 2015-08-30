@@ -1,6 +1,5 @@
 data/axe.js
 data/panel/templates.js
 node_modules
-bower_components
 *.xpi
 tmp

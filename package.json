@@ -13,9 +13,7 @@
   },
   "version": "0.4.2",
   "main": "lib/index.js",
-  "dependencies": {
-    "menuitem": "0.0.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "axe-core": "^1.1.0",
     "grunt": "^0.4.5",
