@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en-US">
 <head>
+  <title>aXe Accessibility Audit</title>
   <meta charset="utf-8">
   <link href="panel.css" rel="stylesheet" />
   <link href="chrome://browser/skin/devtools/widgets.css" rel="stylesheet" />
 </head>
 
 <body>
-  <div id="wrap" class="theme-body devtools-responsive-container devtools-main-content init">
+  <div id="wrap" class="theme-body devtools-responsive-container devtools-main-content init" role="document">
     <div id="results" class="axe-results">
       <div class="axe-issue-list theme-sidebar side-menu-widget-container">
         <div id="toolbar" class="devtools-toolbar devtools-toolbarbutton-group side-menu-widget-container">
@@ -21,23 +22,26 @@
       </div>
       <div class="axe-issue-details empty" id="details">
         <div id="actions" class="devtools-toolbar devtools-toolbarbutton-group">
-          <button class="prev devtools-toolbarbutton" aria-label="Previous" label="">
+          <button class="prev devtools-toolbarbutton" aria-label="Previous" label="" id="axe-toolbar-prev" aria-describedby="axe-toolbar-count">
             <span aria-hidden="true">&lt;</span>
           </button>
-          <div class="axe-devtools-toolbaritem">
-            Violation
-            <span id="currentNode">
-              n/a
-            </span>
-            of
-            <span id="nodeCount">
-              n/a
-            </span>
+          <div class="axe-devtools-toolbaritem" id="axe-toolbar-info" tabindex="-1">
+            <div class="axe-devtools-toolbaritem" id="axe-toolbar-count">
+              Violation
+              <span id="currentNode">
+                n/a
+              </span>
+              of
+              <span id="nodeCount">
+                n/a
+              </span>
+            </div>
+            <div class="axe-devtools-toolbaritem right" id="axe-toolbar-impact">
+              <span class="offscreen">Impact:</span>
+              <span id="impact">n/a</span>
+            </div>
           </div>
-          <div class="axe-devtools-toolbaritem right">
-            <span id="impact">n/a</span>
-          </div>
-          <button class="next devtools-toolbarbutton" aria-label="Next" label="">
+          <button class="next devtools-toolbarbutton" aria-label="Next" label="" id="axe-toolbar-next" aria-describedby="axe-toolbar-count">
             <span aria-hidden="true">&gt;</span>
           </button>
         </div>

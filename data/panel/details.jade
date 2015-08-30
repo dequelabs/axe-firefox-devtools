@@ -26,7 +26,7 @@
   .description
     h2 Summary:
     if node.any.length
-      h2 Fix any of the following:
+      h3 Fix any of the following:
       ul
         each check in node.any
           li
@@ -40,13 +40,13 @@
                       =relatedNode.target
 
     if node.all.length
-      h2 Fix all of the following:
+      h3 Fix all of the following:
       ul
         each check in node.all
           li
             span.message=check.message
             if check.relatedNodes.length
-              h3 Related Nodes:
+              h4 Related Nodes:
               ul
                 each relatedNode in check.relatedNodes
                   li
