@@ -23,6 +23,14 @@
 	var status = $id('status');
 	var details = $id('details');
 
+	document.addEventListener('keydown', function (e) {
+		if (e.shiftKey && e.ctrlKey && e.key === 'L') {
+			$id('analyze').focus();
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	});
+
 	document.addEventListener('click', function(e) {
 		var target = e.target;
 		if (target.classList.contains('related-node')) {
@@ -148,7 +156,7 @@
 		rule = violations[index];
 		$id('nodeCount').textContent = rule.nodes.length;
 		displayNodeDetails(0);
-		$id('actions').querySelector('button').focus();
+		$id('axe-toolbar-info').focus();
 	}
 
 	function displayNodeDetails(nodeNumber) {
@@ -161,6 +169,19 @@
 			rule: rule,
 			node: node
 		});
+
+		if (nodeNumber === 0) {
+			$id('axe-toolbar-prev').disabled = true;
+		} else {
+			$id('axe-toolbar-prev').disabled = false;
+		}
+
+		if (nodeNumber >= rule.nodes.length - 1) {
+			$id('axe-toolbar-next').disabled = true;
+		} else {
+			$id('axe-toolbar-next').disabled = false;
+		}
+
 		bindButtons(node.target);
 		window.postMessage({
 			command: 'highlight',
