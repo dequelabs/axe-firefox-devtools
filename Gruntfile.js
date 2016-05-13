@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-jade');
+	grunt.loadNpmTasks("gruntify-eslint");
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.initConfig({
@@ -35,7 +36,8 @@ module.exports = function (grunt) {
 				src: [require.resolve('jade/runtime'), 'tmp/jade/**/*.js'],
 				dest: 'data/panel/templates.js'
 			}
-		}
+		},
+		eslint: { src: ['lib', 'data', 'test'] }
 	});
 
 	grunt.registerTask('axe', function () {
@@ -43,5 +45,5 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['clean', 'jade', 'concat', 'axe']);
+	grunt.registerTask('build', ['clean', 'eslint', 'jade', 'concat', 'axe']);
 };
