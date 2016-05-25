@@ -16,10 +16,12 @@
   "dependencies": {},
   "devDependencies": {
     "axe-core": "^1.1.0",
+    "eslint-plugin-mozilla": "0.0.3",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-jade": "^0.15.0",
+    "gruntify-eslint": "^2.0.0",
     "jade": "^1.11.0"
   }
 }
