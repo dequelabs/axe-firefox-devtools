@@ -6,7 +6,18 @@
     "type": "git",
     "url": "https://github.com/dequelabs/axe-core.git"
   },
-  "author": "Dylan Barrell",
+  "contributors": [
+    {
+      "name": "Dylan Barrell",
+      "organization": "Deque Systems, Inc.",
+      "url": "http://deque.com/"
+    },
+    {
+      "name": "Marcy Sutton",
+      "organization": "Deque Systems, Inc.",
+      "url": "http://deque.com/"
+    }
+  ],
   "license": "MPL-2.0",
   "engines": {
     "firefox": ">=38.0"
