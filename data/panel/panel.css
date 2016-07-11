@@ -183,9 +183,13 @@ h1, h2, h3, h4, h5, h6 {
 	flex: 1;
 }
 
+.theme-dark .axe-splash .devtools-toolbarbutton,
 .theme-dark .axe-issue-details-content .devtools-toolbarbutton {
 	background: rgba(255, 255, 255, .25);
 	border: 1px solid rgba(255, 255, 255, .25);
+}
+.theme-light .axe-splash .devtools-toolbarbutton {
+	background: rgba(170, 170, 170, .3);
 }
 .theme-light .axe-issue-details-content .devtools-toolbarbutton {
 	border-color: rgba(0, 0, 0, .25);
