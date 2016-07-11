@@ -10,6 +10,12 @@ grunt
 jpm xpi
 ```
 
+To build extension and launch in browser (useful for debuggging):
+
+```
+jpm run
+```
+
 ## Contributing
 
 Read the [documentation on contributing](CONTRIBUTING.md)
