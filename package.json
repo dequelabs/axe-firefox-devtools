@@ -22,7 +22,7 @@
   "engines": {
     "firefox": ">=38.0"
   },
-  "version": "0.4.2",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "dependencies": {},
   "devDependencies": {
