@@ -34,5 +34,8 @@
     "grunt-contrib-jade": "^0.15.0",
     "gruntify-eslint": "^2.0.0",
     "jade": "^1.11.0"
+  },
+  "permissions": {
+    "multiprocess": "true"
   }
 }
