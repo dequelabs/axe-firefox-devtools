@@ -9,6 +9,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks("gruntify-eslint");
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -37,7 +38,15 @@ module.exports = function (grunt) {
 				dest: 'data/panel/templates.js'
 			}
 		},
-		eslint: { src: ['lib', 'data', 'test'] }
+		eslint: { src: ['lib', 'data', 'test'] },
+		copy: {
+			purify: {
+				cwd: 'node_modules/dompurify/dist/',
+				expand: true,
+				src: ['**'],
+				dest: 'dompurify/'
+			}
+		}
 	});
 
 	grunt.registerTask('axe', function () {
