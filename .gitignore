@@ -3,3 +3,4 @@ data/panel/templates.js
 node_modules
 *.xpi
 tmp
+utils

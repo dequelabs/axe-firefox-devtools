@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		clean: ['tmp', 'data/axe.js', 'data/panel/templates.js', '*.xpi'],
+		clean: ['tmp', 'data/axe.js', 'data/panel/templates.js', '*.xpi', 'utils'],
 		jade: {
 			panel: {
 				options: {
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
 				cwd: 'node_modules/dompurify/dist/',
 				expand: true,
 				src: ['**'],
-				dest: 'dompurify/'
+				dest: 'utils/'
 			}
 		}
 	});
@@ -54,5 +54,5 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['clean', 'eslint', 'jade', 'concat', 'axe']);
+	grunt.registerTask('build', ['clean', 'copy', 'eslint', 'jade', 'concat', 'axe']);
 };
