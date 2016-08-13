@@ -4,13 +4,13 @@ Integration of axe-core into the Firefox developer tools
 ## Build / Installation
 
 ```
-npm install grunt jpm -g
+npm install grunt-cli jpm -g
 npm install
 grunt
 jpm xpi
 ```
 
-To build extension and launch in browser (useful for debuggging):
+To build extension and launch in browser (useful for debugging):
 
 ```
 jpm run
