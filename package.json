@@ -22,9 +22,12 @@
   "engines": {
     "firefox": ">=38.0"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "lib/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "dompurify": "^0.8.2",
+    "grunt-contrib-copy": "^1.0.0"
+  },
   "devDependencies": {
     "axe-core": "^2.0.5",
     "eslint-plugin-mozilla": "0.0.3",
@@ -36,6 +39,6 @@
     "jade": "^1.11.0"
   },
   "permissions": {
-    "multiprocess": "true"
+    "multiprocess": true
   }
 }

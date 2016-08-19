@@ -9,10 +9,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks("gruntify-eslint");
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		clean: ['tmp', 'data/axe.js', 'data/panel/templates.js', '*.xpi'],
+		clean: ['tmp', 'data/axe.js', 'data/panel/templates.js', '*.xpi', 'utils'],
 		jade: {
 			panel: {
 				options: {
@@ -37,7 +38,15 @@ module.exports = function (grunt) {
 				dest: 'data/panel/templates.js'
 			}
 		},
-		eslint: { src: ['lib', 'data', 'test'] }
+		eslint: { src: ['lib', 'data', 'test'] },
+		copy: {
+			purify: {
+				cwd: 'node_modules/dompurify/dist/',
+				expand: true,
+				src: ['**'],
+				dest: 'utils/'
+			}
+		}
 	});
 
 	grunt.registerTask('axe', function () {
@@ -45,5 +54,5 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['clean', 'eslint', 'jade', 'concat', 'axe']);
+	grunt.registerTask('build', ['clean', 'copy', 'eslint', 'jade', 'concat', 'axe']);
 };

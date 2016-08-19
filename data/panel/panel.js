@@ -15,6 +15,7 @@
 "use strict";
 
 (function (window) {
+  let sanitize = window.DOMPurify.sanitize;
   let violations, rule;
 
   function $id(id) {
@@ -163,14 +164,14 @@
   function displayNodeDetails(nodeNumber) {
     let node = rule.nodes[nodeNumber];
     let impact = $id("impact");
-    $id("currentNode").textContent = nodeNumber + 1;
-    impact.textContent =
-      node.impact.charAt(0).toUpperCase() + node.impact.slice(1);
+    $id("currentNode").textContent = sanitize(nodeNumber + 1);
+    let impactText = node.impact.charAt(0).toUpperCase() + node.impact.slice(1);
+    impact.textContent = sanitize(impactText);
     impact.className = node.impact;
-    $id("issue-details").innerHTML = JST.details({
+    $id("issue-details").innerHTML = sanitize(JST.details({
       rule: rule,
       node: node
-    });
+    }));
 
     if (nodeNumber === 0) {
       $id("axe-toolbar-prev").disabled = true;
@@ -222,13 +223,13 @@
         };
       }, 0);
       status.textContent = total + " violations found.";
-      list.innerHTML = JST.sidebar({
+      list.innerHTML = sanitize(JST.sidebar({
         violations: violations
-      });
+      }));
     } else {
       details.classList.add("no-violations");
       status.textContent = "No violations found.";
-      $id("issue-details").innerHTML = JST.congrats();
+      $id("issue-details").innerHTML = sanitize(JST.congrats());
     }
   }
   window.receive = receive;
