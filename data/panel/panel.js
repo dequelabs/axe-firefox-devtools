@@ -22,6 +22,14 @@
     return document.getElementById(id);
   }
 
+  window.DOMPurify.addHook("afterSanitizeAttributes", function (node) {
+    // set all elements owning target to target=_blank
+    // otherwise the purifier will strip them out
+    if ("target" in node && node.getAttribute("href") !== "#") {
+      node.setAttribute("target", "_blank");
+    }
+  });
+
   let list = $id("list");
   let status = $id("status");
   let details = $id("details");
