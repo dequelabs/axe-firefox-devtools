@@ -20,7 +20,8 @@ html, body {
 .theme-link {
 	text-decoration: underline;
 }
-.theme-link.inspect {
+.theme-link.inspect,
+.axe-devtools-content-target {
 	word-break: break-all;
 }
 
