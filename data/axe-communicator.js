@@ -23,6 +23,11 @@
    * aXe communicator
    */
   self.port.on("axe.analyze", function () {
+    axe.configure({
+      branding: {
+        application: "axeFirefox"
+      }
+    });
     axe.a11yCheck(document, function (results) {
       self.port.emit("results", results);
     });
