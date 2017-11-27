@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - '4'
-before_install:
-  - npm install -g jpm
-  - npm install -g grunt-cli
-script:
-  - grunt build
-  - jpm xpi

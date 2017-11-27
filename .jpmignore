@@ -1,9 +1,0 @@
-node_modules
-README.md
-CONTRIBUTING.md
-Gruntfile.js
-test
-tmp
-.*
-*.xpi
-*.jade
